@@ -1,0 +1,3 @@
+[submodule "eval/Rotated_IoU"]
+	path = eval/Rotated_IoU
+	url = https://github.com/lilanxiao/Rotated_IoU
