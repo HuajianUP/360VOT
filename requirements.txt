@@ -1,0 +1,8 @@
+numpy
+shapely
+matplotlib
+opencv-python
+argparse
+pytqdm
+rich
+pandas
