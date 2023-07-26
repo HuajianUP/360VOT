@@ -39,13 +39,13 @@ results
     └── 0120.txt
 ```
 
-For quick testing, you can download the benchmark [results]() and unzip them in the folder `benchmark/`. If you don't have the 360VOT dataset, you should also download the [Dataset](). Then, you can evaluate the BFoV results using the command:
-
+For quick testing, you can download the benchmark [results]() and unzip them in the folder `benchmark/`. If you don't have the 360VOT dataset, you also need to download the [Dataset](). Then, you can evaluate the BFoV results using the command:
+![image](asset/360VOT_bfov_metrics.png "metrics")
 ```
 python scripts/eval_360VOT.py -f benchmark/360VOT-bfov-results -d PATH_TO_360VOT_DATASET
 ```
 
-![image](asset/360VOT_bfov_metrics.png "bfov")
+
 
 <details>
 <summary><span style="font-weight: bold;">Command Line Arguments for eval_360VOT.py</span></summary>
@@ -53,18 +53,64 @@ python scripts/eval_360VOT.py -f benchmark/360VOT-bfov-results -d PATH_TO_360VOT
 | Args             | Meaning       |
 | :-------------: | ------------- |
 | -d / --dataset_dir| Path to 360VOT dataset. |
-| -b / --bbox_dir   | Specify the path to the bbox results when you evaluate the results on bbox. |
-| -rb / --rbbox_dir | Specify the path to the rbbox results when you evaluate the results on rbbox. |
-| -f / --bfov_dir   | Specify the path to the bfov results when you evaluate the results on bfov. |
-| -rf / --rbbox_dir | Specify the path to the rbfov results when you evaluate the results on rbfov. |
+| -b / --bbox_dir   | Specify the path to the bbox results when you evaluate the results in bbox. |
+| -rb / --rbbox_dir | Specify the path to the rbbox results when you evaluate the results in rbbox. |
+| -f / --bfov_dir   | Specify the path to the bfov results when you evaluate the results in bfov. |
+| -rf / --rbbox_dir | Specify the path to the rbfov results when you evaluate the results in rbfov. |
 | -a / --attribute | Specify the path to the 360VOT_attribute.xlsx, when you evaluate the results regarding different attributes. |
 | -v / --show_video_level | Print metrics in detail. |
 | -p / --plot_curve | Plot the curves of metrics. |
 | -s / --save_path | Specify the path to save the figure of metrics. |
 
 </details>
-<br>
+
+Command for visualizing the results and make a video:
+```
+# visualize the ground truth
+python scripts/vis_result.py -d PATH_TO_DATASET -p PATH_TO_SAVE_VIDEOS [-ss VIDEO_OF_SPECIFIC_SEQUENCE]
+
+# visualize the tracking results
+python scripts/vis_result.py -d PATH_TO_DATASET -p PATH_TO_SAVE_VIDEOS -f PATH_TO_BFOV_RESULTS [-ss VIDEO_OF_SPECIFIC_SEQUENCE]
+```
+
+Command for checking parts of attributes of 360VOT dataset:
+```
+python scripts/check_360VOT_attribute.py --dir PATH_TO_DATASET [--excel PATH_TO_360VOT_attribute.xlsx]
+```
 ### Processing 360-degree image (equirectangular)
+The toolkit contains an essential library for processing 360<sup>o</sup> images. The operations include:
+
+`crop_bfov`: to extract the region of given (r)bfov from the 360<sup>o</sup> image.
+
+`plot_bfov`: to plot the region of given (r)bfov on the 360<sup>o</sup> image.
+
+![image](asset/comparison_of_bfov.jpg)
+
+`crop_bbox`: to extract the region of given (r)bbox from the 360<sup>o</sup> image.
+
+`plot_bbox`: to plot the region of given (r)bbox on the 360<sup>o</sup> image.
+
+`rot_image`: to rotate the image by the pitch, yaw, or roll angle. 
+
+![image](asset/rotating_360_image.jpg)
+
+`localBbox2Bfov`: convert the (r)bbox predictions on the extracted region to (r)bfov regarding the original 360<sup>o</sup> image.
+
+`localBbox2Bbox`: convert the (r)bbox predictions on the extracted region to (r)bbox regarding the original 360<sup>o</sup> image.
+
+![image](asset/360VOT_framework.jpg "framework")
+
+`mask2Bfov`: estimate the (r)bfov from the masked images.
+
+`mask2Bbox`: estimate the (r)bbox from the masked images.
+
+![image](asset/mask2anno.jpg "mask2anno")
+
+For examples, please refer to `scripts/test_omni.py`
+
+We use a spherical camera model to formulate the relationship between the 2D image and the 3D camera coordinate system. 
+![image](asset/coordinate.jpg "coordinate system")
+
 
 
 

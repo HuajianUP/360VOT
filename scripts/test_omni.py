@@ -3,7 +3,7 @@ import sys
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-from equilib import Equi2Pers, Equi2Equi
+#from equilib import Equi2Pers, Equi2Equi
 import time
 import json
 
@@ -230,6 +230,7 @@ def rotate_img(img, omni=None):
     #plt.savefig("rotate_img.jpg")
     plt.show()
 
+"""
 def rotate_img_equilib(img):
 
     equi2equi = Equi2Equi(img.shape[1], img.shape[0])
@@ -301,6 +302,7 @@ def rotate_img_equilib(img):
     ax1.imshow(np.transpose(rot_img11, (1, 2, 0)))
     plt.savefig("rotate_img_equilib.jpg")
     #plt.show()
+"""
     
 def localAnno2GlobalAnno(img, anno_file, omni=None):
     img_name = img_path.split("/")[-1].split("_")[-1] #"000193.jpg"

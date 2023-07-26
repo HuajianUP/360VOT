@@ -25,7 +25,7 @@ def opt():
     parser.add_argument('-a', '--attribute', type=str, default="",help='attribute excel path') #360VOT attribute final.xlsx
     parser.add_argument('-v', '--show_video_level', dest='show_video_level',action='store_true')
     parser.add_argument('-p', '--plot_curve', dest='plot_results',action='store_true')
-    parser.add_argument('-s', '--save_path', type=str, default=None,help='attribute excel path') #360VOT attribute final.xlsx
+    parser.add_argument('-s', '--save_path', type=str, default=None,help='path to save the plot figure') 
 
     parser.set_defaults(show_video_level=False)
     parser.set_defaults(plot_curve=False)
