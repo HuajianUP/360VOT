@@ -1,6 +1,11 @@
-# 360VOT: A New Benchmark Dataset for Omnidirectional Visual Object Tracking
-Huajian Huang, Yinzhe Xu, Yingshu Chen and Sai-Kit Yeung <br>
-| [Homepage]() | [Paper]() | [Video]() | [Benchmark Dataset]() |
+# 360VOT: Omnidirectional Visual Object Tracking
+### [Homepage]() | [Paper]() | [Video]() | [Benchmark Dataset]()
+
+**360VOT: A New Benchmark Dataset for Omnidirectional Visual Object Tracking** <br>
+[Huajian Huang](https://huajianup.github.io), Yinzhe Xu, [Yingshu Chen](https://chenyingshu.github.io) and [Sai-Kit Yeung](saikit.org/) <br>
+The Hong Kong University of Science and Technology <br>
+In Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV2023) <br>
+
 
 ![image](asset/teaser.jpg "360VOT")
 
@@ -15,7 +20,7 @@ cd 360VOT
 pip install -r requirements.txt
 ```
 
-Currently, the toolkit uses [Rotated_IoU](https://github.com/lilanxiao/Rotated_IoU) to calculate `rBBox IoU` for evaluation. When you seek to evaluate the tracking results in term of rBBox, you should install [Rotated_IoU](https://github.com/lilanxiao/Rotated_IoU).
+Currently, the toolkit uses [Rotated_IoU](https://github.com/lilanxiao/Rotated_IoU) to calculate `rBBox IoU` for evaluation. When you seek to evaluate the tracking results in term of `rBBox`, you should install [Rotated_IoU](https://github.com/lilanxiao/Rotated_IoU).
 ```
 git submodule add https://github.com/lilanxiao/Rotated_IoU eval/Rotated_IoU
 ```
@@ -40,7 +45,7 @@ results
 ```
 
 For quick testing, you can download the benchmark [results]() and unzip them in the folder `benchmark/`. If you don't have the 360VOT dataset, you also need to download the [Dataset](). Then, you can evaluate the BFoV results using the command:
-![image](asset/360VOT_bfov_metrics.png "metrics")
+
 ```
 python scripts/eval_360VOT.py -f benchmark/360VOT-bfov-results -d PATH_TO_360VOT_DATASET
 ```
@@ -64,7 +69,7 @@ python scripts/eval_360VOT.py -f benchmark/360VOT-bfov-results -d PATH_TO_360VOT
 
 </details>
 
-Command for visualizing the results and make a video:
+Command for visualizing the results and making a video:
 ```
 # visualize the ground truth
 python scripts/vis_result.py -d PATH_TO_DATASET -p PATH_TO_SAVE_VIDEOS [-ss VIDEO_OF_SPECIFIC_SEQUENCE]
@@ -80,38 +85,59 @@ python scripts/check_360VOT_attribute.py --dir PATH_TO_DATASET [--excel PATH_TO_
 ### Processing 360-degree image (equirectangular)
 The toolkit contains an essential library for processing 360<sup>o</sup> images. The operations include:
 
-`crop_bfov`: to extract the region of given (r)bfov from the 360<sup>o</sup> image.
+`crop_bfov`: to extract the region of given `(r)BFoV` from the 360<sup>o</sup> image.
 
-`plot_bfov`: to plot the region of given (r)bfov on the 360<sup>o</sup> image.
+`plot_bfov`: to plot the region of given `(r)BFoV` on the 360<sup>o</sup> image.
 
+<details>
+<summary><span style="font-weight: bold;">Example</span></summary>
+    
 ![image](asset/comparison_of_bfov.jpg)
+    
+</details>
 
-`crop_bbox`: to extract the region of given (r)bbox from the 360<sup>o</sup> image.
+`crop_bbox`: to extract the region of given `(r)BBox` from the 360<sup>o</sup> image.
 
-`plot_bbox`: to plot the region of given (r)bbox on the 360<sup>o</sup> image.
+`plot_bbox`: to plot the region of given `(r)BBox` on the 360<sup>o</sup> image.
 
 `rot_image`: to rotate the image by the pitch, yaw, or roll angle. 
-
+<details>
+<summary><span style="font-weight: bold;">Example</span></summary>
+ 
 ![image](asset/rotating_360_image.jpg)
+    
+</details>
 
-`localBbox2Bfov`: convert the (r)bbox predictions on the extracted region to (r)bfov regarding the original 360<sup>o</sup> image.
+`localBbox2Bfov`: convert the `(r)BBox` predictions on the extracted region to `(r)BFoV` regarding the original 360<sup>o</sup> image.
 
-`localBbox2Bbox`: convert the (r)bbox predictions on the extracted region to (r)bbox regarding the original 360<sup>o</sup> image.
-
+`localBbox2Bbox`: convert the `(r)BBox` predictions on the extracted region to `(r)BBox` regarding the original 360<sup>o</sup> image.
+<details>
+<summary><span style="font-weight: bold;">Example</span></summary>
+ 
 ![image](asset/360VOT_framework.jpg "framework")
 
-`mask2Bfov`: estimate the (r)bfov from the masked images.
+</details>
 
-`mask2Bbox`: estimate the (r)bbox from the masked images.
+`mask2Bfov`: estimate the `(r)BFoV` from the masked images.
 
+`mask2Bbox`: estimate the `(r)BBox` from the masked images.
+<details>
+<summary><span style="font-weight: bold;">Example</span></summary>
+ 
 ![image](asset/mask2anno.jpg "mask2anno")
 
-For examples, please refer to `scripts/test_omni.py`
+</details>
 
+For more examples, please refer to `scripts/test_omni.py`
+
+<br>
 We use a spherical camera model to formulate the relationship between the 2D image and the 3D camera coordinate system. 
+<details>
+<summary><span style="font-weight: bold;">Illustration of coordinate system</span></summary>
+ 
 ![image](asset/coordinate.jpg "coordinate system")
 
-
+</details>
 
 
 ## Citation
