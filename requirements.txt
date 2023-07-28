@@ -3,6 +3,6 @@ shapely
 matplotlib
 opencv-python
 argparse
-pytqdm
+tqdm
 rich
 pandas
