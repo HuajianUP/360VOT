@@ -1,5 +1,5 @@
 # 360VOT: Omnidirectional Visual Object Tracking
-### [Homepage](https://360vot.hkustvgd.com/) | [Paper](https://arxiv.org/abs/2307.14630) | [Video]() | [Benchmark Dataset]()
+### [Homepage](https://360vot.hkustvgd.com/) | [Paper](https://arxiv.org/abs/2307.14630) | [Video](https://youtu.be/PKAVzyGBJMw) | [Benchmark Dataset](https://360vot.hkustvgd.com/download)
 
 **360VOT: A New Benchmark Dataset for Omnidirectional Visual Object Tracking** <br>
 [Huajian Huang](https://huajianup.github.io), Yinzhe Xu, [Yingshu Chen](https://chenyingshu.github.io) and [Sai-Kit Yeung](https://saikit.org/) <br>
@@ -44,7 +44,7 @@ results
     └── 0120.txt
 ```
 
-For quick testing, you can download the benchmark [results](https://hkustconnect-my.sharepoint.com/:u:/g/personal/hhuangbg_connect_ust_hk/EV8bjxyaFXVMtByTf95ttWIB4IQSRz3qfM9zZ-NCzFIbrQ?e=XgqgHQ) and unzip them in the folder `benchmark/`. If you have not downloaded the 360VOT dataset, you also need to download the [Dataset](). Then, you can evaluate the BFoV results using the command:
+For quick testing, you can download the benchmark [results](https://hkustconnect-my.sharepoint.com/:u:/g/personal/hhuangbg_connect_ust_hk/EV8bjxyaFXVMtByTf95ttWIB4IQSRz3qfM9zZ-NCzFIbrQ?e=XgqgHQ) and unzip them in the folder `benchmark/`. If you have not downloaded the 360VOT dataset, you also need to download the [Dataset](https://360vot.hkustvgd.com/download). Then, you can evaluate the BFoV results using the command:
 
 ```
 python scripts/eval_360VOT.py -f benchmark/360VOT-bfov-results -d PATH_TO_360VOT_DATASET
