@@ -6,3 +6,5 @@ argparse
 tqdm
 rich
 pandas
+scipy
+scikit-image
