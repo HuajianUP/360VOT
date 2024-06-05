@@ -72,15 +72,15 @@ python scripts/eval_360VOT.py -f benchmark/360VOT-bfov-results -d PATH_TO_360VOT
 Command for visualizing the results and making a video:
 ```
 # visualize the ground truth
-python scripts/vis_result.py -d PATH_TO_DATASET -p PATH_TO_SAVE_VIDEOS [-ss VIDEO_OF_SPECIFIC_SEQUENCE]
+python scripts/vis_result_360VOT.py -d PATH_TO_DATASET -p PATH_TO_SAVE_VIDEOS [-ss VIDEO_OF_SPECIFIC_SEQUENCE]
 
 # visualize the tracking results
-python scripts/vis_result.py -d PATH_TO_DATASET -p PATH_TO_SAVE_VIDEOS -f PATH_TO_BFOV_RESULTS [-ss VIDEO_OF_SPECIFIC_SEQUENCE]
+python scripts/vis_result_360VOT.py -d PATH_TO_DATASET -p PATH_TO_SAVE_VIDEOS -f PATH_TO_BFOV_RESULTS [-ss VIDEO_OF_SPECIFIC_SEQUENCE]
 ```
 
 Command for checking parts of attributes of 360VOT dataset:
 ```
-python scripts/check_360VOT_attribute.py --dir PATH_TO_DATASET [--excel PATH_TO_360VOT_attribute.xlsx]
+python scripts/check_attribute_360VOT.py --dir PATH_TO_DATASET [--excel PATH_TO_360VOT_attribute.xlsx]
 ```
 ### Processing 360-degree image (equirectangular)
 The toolkit contains an essential library for processing 360<sup>o</sup> images. The operations include:
