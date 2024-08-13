@@ -376,7 +376,7 @@ def show_result(success_ret, precision_ret=None, norm_precision_ret=None, angle_
             if given_sphere:
                 tb.add_row("S_sph", "P_ang")
             else:
-                tb.add_row("S_dua", "P_ang")
+                tb.add_row("S_dua", "P_dua")
             tables.append(tb)
         table2.add_row("", *tables)
 
