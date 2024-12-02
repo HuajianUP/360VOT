@@ -445,7 +445,7 @@ class OmniImage(OmniCam):
         # Return: the bbox with respect to the 360 image
         u, v = self._get_bfov_regin(bfov, projection_type, num_sample_h=500) # img_h,
         cx, _ = self.lonlat2uv(ang2rad(bfov.clon), 0)
-        return self.uv2bbox(u, v, cx, need_rotation)
+        return self.uv2Bbox(u, v, cx, need_rotation)
 
     def align_center_by_lonlat(self, img, lon, lat, rotation=0):
         if img.shape[0] != self.img_h or img.shape[1] != self.img_w:
