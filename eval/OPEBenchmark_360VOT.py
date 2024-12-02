@@ -376,7 +376,7 @@ def show_result(success_ret, precision_ret=None, norm_precision_ret=None, angle_
             if given_sphere:
                 tb.add_row("S_sph", "P_ang")
             else:
-                tb.add_row("S_dua", "P_ang")
+                tb.add_row("S_dua", "P_dua")
             tables.append(tb)
         table2.add_row("", *tables)
 
@@ -385,7 +385,10 @@ def show_result(success_ret, precision_ret=None, norm_precision_ret=None, angle_
             tables=[]
             for tracker_name in tracker_names[:maximum]:
                 success = np.mean(success_ret[tracker_name][video])
-                precision = np.mean(angle_precision_ret[tracker_name][video])
+                if given_sphere:
+                    precision = np.mean(angle_precision_ret[tracker_name][video])
+                else:
+                    precision = np.mean(precision_ret[tracker_name][video])
                 success_str = "{:.3f}".format(success)
                 precision_str = "{:.3f}".format(precision)
                 if success > helight_threshold:
