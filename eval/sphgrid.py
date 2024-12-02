@@ -48,6 +48,7 @@ class SphGrid(SphBase):
         
         self.init_integr_grid()
     
+    # deprecated
     def Integr_lat(self, downlim, uplim):
         def integr_helper(down_lim, up_lim):
             return spi.quad(lambda x:np.sin(x), down_lim, up_lim)
@@ -58,5 +59,6 @@ class SphGrid(SphBase):
     def init_integr_grid(self):
         lat_lin_downlim = self.lat_lin - self.lat_step/2.
         lat_lin_uplim = self.lat_lin + self.lat_step/2.
-        lat_lin_integr = np.abs(self.Integr_lat(lat_lin_downlim, lat_lin_uplim) * self.lon_step)
+        # lat_lin_integr = np.abs(self.Integr_lat(lat_lin_downlim, lat_lin_uplim) * self.lon_step)
+        lat_lin_integr = np.sin(lat_lin_uplim) - np.sin(lat_lin_downlim)
         self.integr_grid = np.repeat(lat_lin_integr[:,None], self.img_w, axis=1)
