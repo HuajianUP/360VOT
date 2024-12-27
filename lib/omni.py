@@ -146,6 +146,34 @@ class OmniImage(OmniCam):
         #print(out.shape)
         return out, u, v
     
+    def uncrop_bfov(self, cropped_img, bfov, projection_type=None, out_width=3840, out_height=1920, kernel = 3):
+        # supposed the input is in angle
+        u, v = self._get_bfov_regin(bfov, projection_type, cropped_img.shape[1], cropped_img.shape[0])
+
+        u_flat = u.flatten()
+        v_flat = v.flatten()
+
+        x_indices = np.tile(np.arange(v.shape[1]), (v.shape[0], 1)).flatten()
+        y_indices = np.repeat(np.arange(v.shape[0]), u.shape[1])
+
+        map_x = np.full((out_height, out_width), -1, dtype=np.float32)
+        map_y = np.full((out_height, out_width), -1, dtype=np.float32)
+
+        valid_mask = (u_flat >= 0) & (u_flat < out_width) & (v_flat >= 0) & (v_flat < out_height)
+        valid_u = u_flat[valid_mask].astype(int)
+        valid_v = v_flat[valid_mask].astype(int)
+        valid_x = x_indices[valid_mask]
+        valid_y = y_indices[valid_mask]
+
+        map_x[valid_v, valid_u] = valid_x
+        map_y[valid_v, valid_u] = valid_y
+        
+        new_img = cv2.remap(cropped_img, map_x, map_y, interpolation=cv2.INTER_NEAREST, borderMode=cv2.BORDER_CONSTANT)
+        
+        new_img = mask_dilate(new_img, kernel)
+        
+        return new_img, u, v
+    
     def plot_bfov(self, img, bfov, projection_type=None, num_sample_h=1000, num_sample_v=None, border_only=True, color=(255, 0, 0), size = 10):
         u, v = self._get_bfov_regin(bfov, projection_type, num_sample_h, num_sample_v) # img_h, 
         img = self.plot_uv(img, u, v, border_only, color, size)
