@@ -1104,7 +1104,7 @@ class OmniFrameworkTorch(OmniImageTorch):
             raw_msk (torch.Tensor or np.ndarray or None): Ground truth mask or None.
 
         Returns:
-            Tuple of search region RGB and mask tensors.
+            Tuple of search region RGB of shape (3 x out_height x out_width) in the range [0.0, 1.0] and mask tensors of shape (out_height x out_width).
         """
 
         rgb = self._format_framework_rgb(raw_rgb) # expect (H, W, 3)
@@ -1124,7 +1124,7 @@ class OmniFrameworkTorch(OmniImageTorch):
                                     num_sample_v=self.out_height,
                                     return_uv=False)
             msk_sr = self._format_framework_msk(msk_sr, raw_msk)
-        else: # case 2: current rgb don't have gt msk
+        else: # case 2: current rgb doesn't have gt msk
             if self.valid_sr and not self.full_sr: 
                 # case 2.1: valid search region bfov is obtained from the predicted msk of previous frame
                 rgb_sr = self.crop_bfov(rgb, self.cur_bfov_sr, 
@@ -1133,7 +1133,8 @@ class OmniFrameworkTorch(OmniImageTorch):
                                         return_uv=False)
             else: 
                 # case 2.2: previous frame losing target or predicting msk invalid, resize the whole image as the search region
-                rgb_sr = F.interpolate(rgb.permute(2, 0, 1).unsqueeze(0), (self.out_height, self.out_width), mode='nearest')
+                rgb_sr = F.interpolate(rgb.permute(2, 0, 1).unsqueeze(0), 
+                                       (self.out_height, self.out_width), mode='nearest')
                 rgb_sr = rgb_sr.squeeze(0).permute(1, 2, 0)
             cur_bfov = None
             msk_sr = None
@@ -1143,8 +1144,8 @@ class OmniFrameworkTorch(OmniImageTorch):
         if self.save_inter:
             self.pre_rgb_sr = self.cur_rgb_sr #if self.cur_rgb_sr else self.pre_rgb_sr
             self.pre_msk_sr = self.cur_msk_sr #if self.cur_msk_sr else self.pre_msk_sr
-            self.cur_rgb_sr = rgb_sr.int().cpu().numpy()
-            self.cur_msk_sr = msk_sr.int().cpu().numpy() if not msk_sr is None else None
+            self.cur_rgb_sr = rgb_sr.cpu().int().numpy()
+            self.cur_msk_sr = msk_sr.cpu().int().numpy() if not msk_sr is None else None
             self.pre_bfov = self.cur_bfov
             self.cur_bfov = cur_bfov
         
@@ -1159,7 +1160,7 @@ class OmniFrameworkTorch(OmniImageTorch):
             raw_prd (torch.Tensor or np.ndarray): Predicted mask in search region.
 
         Returns:
-            Tuple of reprojected mask as numpy array and validity flag.
+            Tuple of reprojected mask as numpy array of shape (ori_height x ori_width) and validity flag.
         """
 
         prd_sr = self._format_framework_msk(raw_prd)
@@ -1207,10 +1208,10 @@ class OmniFrameworkTorch(OmniImageTorch):
 
         if self.save_inter:
             self.pre_prd = self.cur_prd
-            self.cur_prd = prd.int().cpu().numpy()
+            self.cur_prd = prd.cpu().int().numpy()
             self.pre_prd_bfov = self.cur_prd_bfov
             self.cur_prd_bfov = prd_bfov
             self.pre_prd_sr = self.cur_prd_sr
-            self.cur_prd_sr = prd_sr.int().cpu().numpy()
+            self.cur_prd_sr = prd_sr.cpu().int().numpy()
 
         return (prd.cpu().numpy()).astype(np.uint8), self.valid_sr
