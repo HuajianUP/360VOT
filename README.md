@@ -44,7 +44,7 @@ results
     └── 0120.txt
 ```
 
-For quick testing, you can download the benchmark [results](https://hkustconnect-my.sharepoint.com/:u:/g/personal/hhuangbg_connect_ust_hk/EV8bjxyaFXVMtByTf95ttWIB4IQSRz3qfM9zZ-NCzFIbrQ?e=XgqgHQ) and unzip them in the folder `benchmark/`. If you have not downloaded the 360VOT dataset, you also need to download the [Dataset](https://360vot.hkustvgd.com/download). Then, you can evaluate the BFoV results using the command:
+For quick testing, you can download the benchmark [results](https://hkustconnect-my.sharepoint.com/:u:/g/personal/hhuangbg_connect_ust_hk/EV8bjxyaFXVMtByTf95ttWIB4IQSRz3qfM9zZ-NCzFIbrQ?e=XgqgHQ) and unzip them in the folder `benchmark/`. If you have not downloaded the 360VOT dataset, you also need to download the [Dataset](https://360vot.hkustvgd.com/download) (or [HuggingFace](https://huggingface.co/datasets/xuyzshaun/360VOTS)). Then, you can evaluate the BFoV results using the command:
 
 ```
 python scripts/eval_360VOT.py -f benchmark/360VOT-bfov-results -d PATH_TO_360VOT_DATASET
